@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Reader</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        iframe {
+            width: 100%;
+            height: 100vh;
+            border: none;
+        }
+        .error {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-size: 20px;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <script>
+            // Get the 'id' parameter from the URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const fileId = urlParams.get('id');
+
+            // Base URL for PDF files
+            const baseUrl = "https://lms-resource-viewer.netlify.app/pdfs/"; // Change this to your actual PDF directory
+
+            // Check if the 'id' parameter exists
+            if (fileId) {
+                // Construct the full URL to the PDF
+                const pdfUrl = `${baseUrl}${fileId}.pdf`;
+
+                // Create an iframe element to display the PDF
+                const iframe = document.createElement('iframe');
+                iframe.src = pdfUrl;
+
+                // Append the iframe to the container
+                document.getElementById('container').appendChild(iframe);
+            } else {
+                // Display an error message if the 'id' parameter is missing
+                document.getElementById('container').innerHTML = '<div class="error">Error: No file ID provided in the URL.</div>';
+            }
+        </script>
+    </div>
+</body>
+</html>
